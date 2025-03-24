@@ -33,7 +33,7 @@ SELECT CONCAT('유', ' ', '관순');
 SELECT
     CONCAT('메뉴 이름은 ', menu_name, '이고, 가격은 '
           , menu_price, '원 입니다.')
-FROM tbl_menu;
+    FROM tbl_menu;
 
 -- 별칭(alias) 달아보기
 SELECT 7 + 3 AS '합';

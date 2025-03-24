@@ -88,3 +88,65 @@ SELECT
         FIELD(orderable_status, 'Y','N')
     FROM
         tbl_menu;
+
+SELECT
+       menu_name
+     , orderable_status
+FROM
+       tbl_menu
+ORDER BY
+     FIELD(orderable_status, 'Y','N');
+
+
+-- NULL
+-- 오름차순 시 NULL값은 맨 위에 온다(DEFAULT)
+-- 내림차슨 시 NULL값은 맨 밑에 온다(DEFAULT)
+SELECT
+          category_code
+        , category_name
+        , ref_category_code
+    FROM
+          tbl_category
+    ORDER BY
+#         ref_category_code;
+          ref_category_code DESC ;
+
+-- 오름차순 시 NULL 마지막
+SELECT
+         category_code
+      ,  category_name
+      ,  ref_category_code
+FROM
+        tbl_category
+ORDER BY
+        ref_category_code IS NULL ;
+
+-- 내림차순 시 NULL 마지막
+SELECT
+        category_code
+      , category_name
+      , ref_category_code
+    FROM
+        tbl_category
+    ORDER BY
+        ref_category_code DESC ;
+
+--  내림차순 시 NULL 처음으로
+SELECT
+    category_code
+     , category_name
+     , ref_category_code
+FROM
+    tbl_category
+ORDER BY
+    ref_category_code IS NULL DESC;
+
+
+
+
+
+
+
+
+
+
