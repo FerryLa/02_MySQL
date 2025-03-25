@@ -182,7 +182,7 @@ SELECT SIGN(10.1), SIGN(0), SIGN(-10.1);
 -- 지원하는 날짜/시간 단위
 SELECT NOW(), ADDDATE(NOW(), 1);
 SELECT ADDDATE('2025-03-21', INTERVAL 30 DAY), ADDDATE('2025-03-21', INTERVAL 5 MONTH);
-SELECT SUBDATE('2025-03-21', INTERVAL 30 DAY), ADDDATE('2025-03-21', INTERVAL 5 MONTH);
+SELECT SUBDATE('2025-03-21', INTERVAL 30 DAY), SUBDATE('2025-03-21', INTERVAL 5 MONTH);
 SELECT ADDDATE('2025-03-21', INTERVAL 1 MONTH);
 SELECT ADDDATE('2025-03-21', INTERVAL -1 MONTH);
 
@@ -254,6 +254,12 @@ SELECT DAYOFWEEK(CURDATE()), MONTHNAME(CURDATE()), DAYOFYEAR(CURDATE());
 -- LAST_DAY: 해당 날짜의 달에서 마지막 날의 날짜를 구한다.
 SELECT LAST_DAY('20020601');
 
+SELECT MAKEDATE(2023, 32);
+
+SELECT MAKETIME(17, 03, 02);
+
+SELECT PERIOD_ADD(202305, 6), PERIOD_DIFF(202305, 202311);
+
 -- QUARTER(날짜)
 -- QUARTER: 해당 날짜의 분기를 구함
 SELECT QUARTER('2025-03-21');
@@ -265,9 +271,10 @@ SELECT
     NOW(),
     DATE_FORMAT(NOW(), '%y-%m-%d') 년월일,
     DATE_FORMAT(NOW(), '%H:%i:%s') 시분초,
-    DATE_FORMAT(NOW(), '%Y/%m/%d(%W)')
-;
+    DATE_FORMAT(NOW(), '%Y/%m/%d(%W)');
 -- %w 일요일(0) ~ 토요일(6) 숫자반환
+
+SELECT TIME_TO_SEC('1:1:1');
 
 -- =================================
 -- 형변환함수
@@ -321,33 +328,32 @@ SELECT
 
 
 # 선택함수 case
-# 여러 가지 경우에 선택을할 수 있는 기능을 제공함 (범위값도 가능)
-# 작성법                               리턴값 타입
-# ----------------------------------------------------------------------------------------------
-# (타입1)
-# CASE WHEN 조건1 THEN 결과1
-# WHEN 조건2 THEN 결과2                    결과
-# WHEN 조건3 THEN 결과3
-# ELSE 결과
-# END
-# (타입2)
-# CASE 표현식
-# WHEN 값1 THEN 결과1
-# WHEN 값2 THEN 결과2
-# WHEN 값3 THEN 결과3
-# ELSE 결과
-# END
+# # 여러 가지 경우에 선택을할 수 있는 기능을 제공함 (범위값도 가능)
+# # 작성법                               리턴값 타입
+# # ----------------------------------------------------------------------------------------------
+# # (타입1)
+# # CASE WHEN 조건1 THEN 결과1
+# # WHEN 조건2 THEN 결과2                    결과
+# # WHEN 조건3 THEN 결과3
+# # ELSE 결과
+# # END
+# # (타입2)
+# # CASE 표현식
+# # WHEN 값1 THEN 결과1
+# # WHEN 값2 THEN 결과2
+# # WHEN 값3 THEN 결과3
+# # ELSE 결과
+# # END
 
-SELECT
-        menu_name
-      , menu_price
-      , CASE
-            WHEN menu_price < 5000 THEN '싼거'
-            WHEN menu_price BETWEEN 5000 AND 10000 THEN '적당한거'
-            WHEN menu_price BETWEEN 10000 AND 20000 THEN '좀 비싼거'
-            ELSE '많이 비싼거'
-        END
-    FROM tbl_menu;
+SELECT menu_name
+     , menu_price
+     , CASE
+           WHEN menu_price < 5000 THEN '싼거'
+           WHEN menu_price BETWEEN 5000 AND 10000 THEN '적당한거'
+           WHEN menu_price BETWEEN 10000 AND 20000 THEN '좀 비싼거'
+           ELSE '많이 비싼거'
+    END
+FROM tbl_menu;
 
 -- ------------------------------------------
 -- 그룹함수

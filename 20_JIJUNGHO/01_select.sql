@@ -28,23 +28,30 @@ WHERE  :
 ORDER BY : 정렬한 컬럼을 기준으로 오름(ASC)/내림차순(DESC) 지정
 */
 
-select *
-from tbl_menu;
+SELECT *
+  FROM
+      tbl_menu;
 
-select menu_code
-     , menu_name
-     , menu_price
-     , category_code
-     , orderable_status
-from tbl_menu;
+SELECT
+    menu_code
+  , menu_name
+  , menu_price
+  , category_code
+  , orderable_status
+  FROM
+      tbl_menu;
 
-select category_code
-from tbl_category;
+SELECT
+    category_code
+  FROM
+      tbl_category;
 
-select menu_name
-     , menu_code
-from tbl_menu
-         JOIN tbl_category ON tbl_menu.category_code = tbl_category.category_code;
+SELECT
+    menu_name
+  , menu_code
+  FROM
+      tbl_menu
+          JOIN tbl_category ON tbl_menu.category_code = tbl_category.category_code;
 
 -- ------------------------------------------------------------------------
 -- from절이 없는 select 해보기
@@ -56,8 +63,10 @@ SELECT NOW();
 SELECT CONCAT('유', '', '재석');
 
 -- 메뉴 이름은 참치쉐이크 이고, 가격은 30,000원 입니다. (데이터 정제)
-SELECT CONCAT('메뉴 이름은 ', menu_name, '이고 가격은 ', menu_price, '원 입니다.')
-from tbl_menu;
+SELECT
+    CONCAT('메뉴 이름은 ', menu_name, '이고 가격은 ', menu_price, '원 입니다.')
+  FROM
+      tbl_menu;
 
 -- 별칭(alias) 달아보기
 SELECT 7 + 3 AS '합계';
@@ -68,11 +77,14 @@ SELECT NOW() '현재 시간';
 -- 임의로 지정한 문자열은 SELECT 절에 사용하면, 테이블에 존재하는 데이터처럼 사용할 수 있다.
 -- 문자 혹은 날짜 리터럴은 '' 기호를 사용해야 한다.
 -- 리터럴은 ResultSet의 모든 행에 반복 표시된다.
-SELECT menu_name,
-       menu_price + (menu_price * .1) AS "부가세 보함 가격",
-       '원'
-from tbl_menu
-ORDER BY 2 DESC;
+SELECT
+    menu_name
+  , menu_price + (menu_price * .1) AS "부가세 보함 가격"
+  , '원'
+  FROM
+      tbl_menu
+ ORDER BY
+     2 DESC;
 
 -- DISTINCT
 -- 컬럼에 포함된 중복 값을 한번씩만 표시하고자 할때 사용
@@ -80,15 +92,21 @@ ORDER BY 2 DESC;
 -- 두 컬럼값에 대해 중복값을 제거한다.
 
 -- 단일 열에 대한 DISTINCT (category_code의 값이 중복되지 않게 출력)
-SELECT DISTINCT category_code
-from tbl_menu;
+SELECT DISTINCT
+    category_code
+  FROM
+      tbl_menu;
 
 -- NULL값 포함한 열의 DISTINCT
-SELECT DISTINCT ref_category_code
-FROM tbl_category;
+SELECT DISTINCT
+    ref_category_code
+  FROM
+      tbl_category;
 
 
 -- 복수의 열에 대한 DISTINCT
-SELECT DISTINCT category_code
-              , orderable_status
-from tbl_menu;
+SELECT DISTINCT
+    category_code
+  , orderable_status
+  FROM
+      tbl_menu;

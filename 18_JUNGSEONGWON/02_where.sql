@@ -60,7 +60,7 @@ SELECT
 #         orderable_status <> 'Y';
 #         orderable_status != 'Y';
 #         orderable_status  = 'n';
-#         orderable_status  = 'N'; -- MYSQL에서는 비교나 검색을 수행할 때 기본적으로 대소문자 구분없이 비교 및 검색이 가능하다.
+         orderable_status  = 'N'; -- MYSQL에서는 비교나 검색을 수행할 때 기본적으로 대소문자 구분없이 비교 및 검색이 가능하다.
 
 -- 1. 대소 비교 연산자와 함께 WHERE절 사용
 SELECT
@@ -91,7 +91,7 @@ SELECT 1 AND 0, 0 AND 1, 0 AND 0, 0 AND NULL;
 SELECT 1 AND NULL, NULL AND NULL;
 SELECT 1 + NULL, 1 - NULL, 1 * NULL, 1 / NULL;
 
---- 메뉴 테이블에서 주문여부가 Y이면서 카테고리코드가 10인 메뉴목록을 조회
+-- 메뉴 테이블에서 주문여부가 Y이면서 카테고리코드가 10인 메뉴목록을 조회
 SELECT
           menu_code
          ,menu_price
@@ -101,7 +101,7 @@ SELECT
     WHERE
           orderable_status = 'Y'
        AND
-          category_code = '10'
+          category_code = '10';
 
 -- 메뉴 테이블에서 메뉴 가격이 5000원보다 크고, 카테고리 코드가 10인 메뉴를 출력해주세요.
 -- 단, 컬럼의 출력은 메뉴 코드, 메뉴 이름, 메뉴 가격, 카테고리 코드, 주문여부만 출력
@@ -123,7 +123,7 @@ SELECT 1 OR 1, 1 OR 0, 0 OR 1;
 SELECT 0 OR 0;
 SELECT 1 OR NULL, 0 OR NULL, NULL OR NULL;
 
---- 메뉴 테이블에서 주문여부가 Y 이거나  카테고리코드가 10인 메뉴목록을 조회
+-- 메뉴 테이블에서 주문여부가 Y 이거나  카테고리코드가 10인 메뉴목록을 조회
 SELECT
            menu_code
          , menu_price
@@ -157,3 +157,196 @@ SELECT
     AND
           menu_code > '10';
 
+ -- 5. BETWEEN 연산자
+ -- 숫자, 문자열, 날짜/시간 값의 범위안에 있다면 TRUE를 반환하는 연산자
+
+SELECT
+          menu_name
+         ,menu_price
+         ,category_code
+      FROM
+          tbl_menu
+     WHERE
+          menu_price >= 10000
+       AND
+          menu_price <= 25000;
+
+SELECT
+         menu_name
+        ,menu_price
+        ,category_code
+    FROM
+         tbl_menu
+    WHERE
+         menu_price BETWEEN 10000 AND 25000;
+
+ -- 사전등재순으로 문자열 범위 비교
+SELECT
+         menu_name
+        ,menu_price
+        ,category_code
+    FROM
+         tbl_menu
+    WHERE
+         menu_name BETWEEN '가'AND '마'
+    ORDER BY
+         menu_name;
+
+SELECT
+         menu_name
+        ,menu_price
+        ,category_code
+    FROM
+         tbl_menu
+   WHERE
+         menu_price NOT BETWEEN 10000 AND 25000;
+
+-- 6. LIKE 연산
+-- 비교하려는 값이 지정한 특정 패턴을 만족시키면 TRUE를 리턴하는 연산자로 '%', ''를 와일드카드로 사용할 수있다.
+
+-- 와일드카드란? 다른 문자로 대체가능한 특수한 의미를 가진 문자
+-- 1. '%' 글자가 없든지, 글자가 1개 이상 여러개를 의미한다.
+-- 2. 개수에 따라 문자 1개를 의미한다 _가 3개라면 문자 3개를 의미한다.
+
+-- %의 위치에 따라서 검색
+-- %문자     : 문자로 끝나는 내용만
+-- 문자%     : 문자로 시작하는 내용만
+-- %문자%    : 문자가 포함되어 있는 내용만
+
+SELECT
+         menu_name
+        ,menu_price
+    FROM
+         tbl_menu
+   WHERE
+         menu_name LIKE '%마늘%';
+
+SELECT
+          menu_name
+         ,menu_price
+     FROM
+         tbl_menu
+    WHERE
+         menu_name LIKE '마%';
+
+SELECT
+         menu_name
+        ,menu_price
+     FROM
+         tbl_menu
+    WHERE
+         menu_name LIKE '%밥';
+
+
+-- 쥬스 앞글자가 6글자인 메뉴조합
+
+SELECT
+         menu_name
+        ,menu_price
+    FROM
+         tbl_menu
+    WHERE
+         menu_name LIKE '______쥬스';
+
+SELECT
+          menu_name
+         ,menu_price
+     FROM
+         tbl_menu
+    WHERE
+         menu_name LIKE '%갈치%';
+
+SELECT
+          menu_name
+         ,menu_price
+     FROM
+         tbl_menu
+    WHERE
+         menu_name NOT LIKE '%갈치%';
+
+--  IN 연산자
+-- 카테고리 코드가 4,5,6 인 메뉴를 조회하세요.
+
+SELECT
+         menu_name
+        ,category_code
+    FROM
+         tbl_menu
+   WHERE
+         category_code = 4
+      OR
+         category_code = 5
+      OR
+         category_code = 6;
+
+SELECT
+         menu_name
+        ,category_code
+    FROM
+         tbl_menu
+    WHERE
+         category_code IN (4,5,6);
+
+SELECT
+          menu_name
+         ,category_code
+     FROM
+         tbl_menu
+    WHERE
+         category_code NOT IN (4,5,6);
+
+ -- IS NULL
+
+SELECT
+        category_code
+       ,category_name
+       ,ref_category_code
+    FROM
+        tbl_category
+   WHERE
+        ref_category_code IS NULL;
+
+-- null 처리 함수를 통해서 찾을 수 있다.
+
+SELECT
+        category_code
+       ,category_name
+       ,ref_category_code
+       ,IFNULL(ref_category_code, 0)
+    FROM
+        tbl_category
+
+    WHERE
+    #       IFNULL(ref_category_code, 0) = 0; -- IFNULL()는 만약 ()안의 내용이 NULL, MYSQL에서만 사용가능
+            COALESCE(ref_category_code,0) = 0; -- 모든 DBMS에서 사용가능
+
+-- 부정표현
+SELECT
+         category_code
+        ,category_name
+        ,ref_category_code
+     FROM
+         tbl_category
+    WHERE
+         ref_category_code IS NOT NULL;
+
+
+create table tb_escape_watch(
+                                watchname varchar(40),
+                                description varchar(200)
+);
+insert into tb_escape_watch values('금시계', '순금 99.99% 함유 고급시계');
+insert into tb_escape_watch values('은시계', '고객 만족도 99.99점를 획득한 고급시계');
+
+SELECT * FROM tb_escape_watch ;
+
+-- escape문자 : \% -> 99.99\%
+-- tb_escape_watch 테이블에서 description 컬럼에 99.99%라는 글자가 들어가 있는 행만 추출하세요.
+
+SELECT
+         description
+       , watchname
+    FROM
+         tb_escape_watch
+    WHERE
+         description LIKE '%99.99\%%'
