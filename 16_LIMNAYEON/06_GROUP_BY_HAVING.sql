@@ -86,4 +86,4 @@ SELECT
  GROUP BY
         category_code
       , menu_price
-WITH ROLLUP;``
+WITH ROLLUP;

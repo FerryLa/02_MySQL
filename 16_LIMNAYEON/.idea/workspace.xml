@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de9dcf41-9ff0-4a1e-92e6-a5f30de2713a" name="변경" comment="commit">
-      <change afterPath="$PROJECT_DIR$/03_ORDER_BY.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/04_LIMIT.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/05_BUILT_IN_FUNCTIONS.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/06_GROUP_BY_HAVING.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_where.sql" beforeDir="false" afterPath="$PROJECT_DIR$/02_where.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/08_JOIN.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/09_SUBQUERY.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/10_SET_OPERATORS.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/11_DML.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/12_TRANSACTION.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/13_DDL.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/14_CONSTRAINTS.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0979b98b-f890-4e03-b4b6-1ae3dbf23cf2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0979b98b-f890-4e03-b4b6-1ae3dbf23cf2/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0979b98b-f890-4e03-b4b6-1ae3dbf23cf2/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/47cb6aa1-9581-4c10-9cfb-01b1f847e1ac.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/47cb6aa1-9581-4c10-9cfb-01b1f847e1ac.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e72eb12f-59de-4cd8-9dd6-4b7c90428e44.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e72eb12f-59de-4cd8-9dd6-4b7c90428e44.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06_GROUP_BY_HAVING.sql" beforeDir="false" afterPath="$PROJECT_DIR$/06_GROUP_BY_HAVING.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +107,7 @@
       <workItem from="1742464456576" duration="384000" />
       <workItem from="1742515722123" duration="510000" />
       <workItem from="1742516240055" duration="27078000" />
+      <workItem from="1742774797656" duration="28257000" />
     </task>
     <task id="LOCAL-00001" summary="11">
       <option name="closed" value="true" />
