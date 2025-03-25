@@ -277,3 +277,143 @@ and
 order by
     a.SALARY desc;
 -- 3
+select
+    a.DEPT_CODE 부서명,
+    a.EMP_ID 인원,
+    a.SALARY 급여합계,
+    a.SALARY 급여평균
+    from
+        employee a
+join empdb.department d on a.DEPT_CODE = d.DEPT_ID
+where
+    SALARY = sum(*) '급여합계'
+group by
+    salary = avg(*) '급여평균';
+-- 4
+select
+    a.EMP_NAME 사원명,
+    a.EMP_NO 주민번호,
+    a.PHONE 전화번호,
+    d.dept_title 부서명,
+    j.JOB_NAME 직급명
+    from
+        employee a
+    join empdb.department d on a.DEPT_CODE = d.DEPT_ID
+    join empdb.job j on a.JOB_CODE = j.JOB_CODE
+
+order by
+    HIRE_DATE;
+-- 5
+select
+    date_add()
+    from
+        employee
+-- 6
+select
+    a.EMP_NAME 사원명,
+    a.EMP_NO 주민번호,
+    d.dept_title 부서명,
+    j.JOB_CODE 직급명
+from
+    employee a
+   join empdb.department d on a.DEPT_CODE = d.DEPT_ID
+    join empdb.job j on a.JOB_CODE = j.JOB_CODE
+where
+    a.EMP_NO like '70____%' and a.EMP_NAME like '%전';
+-- 7??
+select * from employee
+where to_days();
+
+-- 8 내가 한거
+select
+    a.EMP_NAME 사원명,
+    j.JOB_name 직급명,
+    a.DEPT_CODE 부서코드,
+    k.LOCAL_CODE 부서명
+from employee a
+         join empdb.department d on a.DEPT_CODE = d.DEPT_ID
+         join empdb.job j on a.JOB_CODE = j.JOB_CODE
+     left join empdb.location k on a.JOB_CODE = k.LOCAL_CODE
+where
+    a.DEPT_CODE = 'D5' or
+    a.DEPT_CODE ='D6';
+/* SELECT 답?
+    emp_name 사원명,
+    job_name 직급명,
+    dept_code 부서코드,
+    dept_title 부서명
+FROM
+    employee
+        JOIN department ON dept_code = dept_id
+        JOIN job USING(job_code)
+WHERE
+    dept_title LIKE '해외영업%';
+*/
+-- 조인 2
+-- 1
+
+select
+    EMP_ID 사번,
+    EMP_NAME 사원명,
+truncate(
+    datediff(now(),
+    concat(
+    if(substr(EMP_NO,8,1)in (1,2),19,20),
+    left(EMP_NO,6)
+    )) /365,0) 나이,
+    dept_title 부서명,
+    job_name 직급명
+    from
+        employee
+left join department on DEPT_CODE = DEPT_ID
+left join job using (job_code)
+order by
+    나이
+limit 1;
+
+-- 2 이전 8번과 동일
+
+
+SELECT
+    emp_name 사원명,
+    job_name 직급명,
+    dept_code 부서코드,
+    dept_title 부서명
+FROM
+    employee
+        JOIN department
+            ON dept_code = dept_id
+        JOIN job USING(job_code)
+WHERE
+    dept_title LIKE '해외영업%'
+-- 3
+select
+    EMP_NAME 사원명,
+    BONUS 보너스포인트,
+    dept_title 부서명,
+    k.local_name 근무지역명
+from
+    employee
+    join department on DEPT_CODE =DEPT_ID
+    join job using (job_code)
+    left join empdb.location k on JOB_CODE = k.LOCAL_CODE;
+-- left join empdb.location k on JOB_CODE = k.LOCAL_CODE;를
+-- left join location | on location_id = local_code 로 변경
+-- where bouns is not null을 넣어야 null값이 나오지 않고 모두 출력
+
+-- 4
+select
+    EMP_NAME 사원명,
+    job_name 직급명,
+    SALARY 급여,
+    SAL_LEVEL 연봉,
+    MAX_SAL 최대급여
+from
+employee
+    left join department on DEPT_CODE = DEPT_ID
+    left join job using (job_code)
+    left join  sal_grade on employee.SAL_LEVEL = MAX_SAL
+where
+    max_sal = 29999999;
+-- 5
+
