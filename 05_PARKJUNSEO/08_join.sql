@@ -101,7 +101,7 @@ SELECT
      a.EMP_NAME
    , b.DEPT_TITLE
    , c.JOB_NAME
-   , e.NATIONAL.NAME
+   , e.NATIONAL_NAME
   FROM employee a
   JOIN department b ON a.DEPT_CODE = b.DEPT_ID
   JOIN job c ON a.JOB_CODE = c.JOB_CODE
