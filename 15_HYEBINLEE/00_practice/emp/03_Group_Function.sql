@@ -13,7 +13,7 @@ use empdb;
         ---------------------------------
         24816240
     */
-    SELECT SUM(SALARY) FROM employee
+    SELECT SUM(SALARY) '급여 총 합' FROM employee
     WHERE SUBSTR(EMP_NO,8,1) IN(2,4);
 
 
@@ -45,7 +45,7 @@ use empdb;
     */
 
     SELECT
-           FORMAT((SUM(SALARY)+ SUM(SALARY*IFNULL(BONUS,0)))*12,0) 연봉
+           FORMAT(SUM((SALARY + (SALARY*IFNULL(BONUS,0)))*12),0) 연봉
       FROM employee
      WHERE DEPT_CODE = 'D5';
 
