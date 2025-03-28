@@ -19,7 +19,13 @@ LIMIT 3;
 
 -- 2. 재직 중인 ‘대리’들의 직원명, 직급명, 급여, 사원번호, 주민번호, 이메일, 전화번호, 입사일을 출력하세요.
 -- 단, 급여를 기준으로 내림차순 출력하세요.
-
+SELECT a.EMP_NAME 사원명, b.JOB_NAME 직급명, a.SALARY 급여
+     , a.EMP_NO 주민번호, a.EMAIL 이메일, a.PHONE 전화번호, a.HIRE_DATE 입사일
+FROM employee a
+         JOIN JOB b ON a.JOB_CODE = b.JOB_CODE
+WHERE a.QUIT_YN = 'N'
+  AND b.JOB_NAME = '대리'
+ORDER BY a.SALARY DESC;
     /*
         ---------------------------------- 출력 예시 ------------------------------------------------
         사원명     직급명     급여       주민번호        이메일                    입사일
@@ -30,21 +36,15 @@ LIMIT 3;
         하동운     대리      2320000     621111-1785463  ha_dh@ohgiraffers.com     1999-12-31 00:00:00
         전형돈     대리      2000000     830807-1121321  jun_hd@ohgiraffers.com    2012-12-12 00:00:00
     */
-    SELECT a.EMP_NAME 사원명, b.JOB_NAME 직급명, a.SALARY 급여
-         , a.EMP_NO 주민번호, a.EMAIL 이메일, a.PHONE 전화번호, a.HIRE_DATE 입사일
-      FROM employee a
-      JOIN JOB b ON a.JOB_CODE = b.JOB_CODE
-     WHERE a.QUIT_YN = 'N'
-       AND b.JOB_NAME = '대리'
-     ORDER BY a.SALARY DESC;
+
 
 -- 3. 재직 중인 직원들을 대상으로 부서별 인원, 급여 합계, 급여 평균을 출력하고,
 --    마지막에는 전체 인원과 전체 직원의 급여 합계 및 평균이 출력되도록 하세요.
 --    단, 출력되는 데이터의 헤더는 컬럼명이 아닌 ‘부서명’, ‘인원’, ‘급여합계’, ‘급여평균’으로 출력되도록 하세요. (ROLLUP사용)
 SELECT * FROM department;
 SELECT * FROM employee;
-SELECT b.DEPT_TITLE FROM employee a JOIN department b ON a.DEPT_CODE = b.DEPT_ID
-
+SELECT b.DEPT_TITLE FROM employee a JOIN department b ON a.DEPT_CODE = b.DEPT_ID;
+use empdb;
 
 SELECT
       b.DEPT_TITLE 부서명,
@@ -85,7 +85,7 @@ SELECT a.EMP_NAME, a.EMP_NO, IFNULL(a.PHONE, ''), b.DEPT_TITLE, c.JOB_NAME
   FROM employee a
   JOIN department b ON a.DEPT_CODE = b.DEPT_ID
   JOIN JOB c ON a.JOB_CODE = c.JOB_CODE
-ORDER BY HIRE_DATE
+ORDER BY HIRE_DATE;
 
     /*
         ------------------- 출력 예시 ---------------------------------
@@ -113,9 +113,7 @@ ORDER BY HIRE_DATE
 #     WHEN DAYOFWEEK(20201225) = 7 THEN '토'
 #     END 요일
 
-# SELECT CASE WHEN DAYOFWEEK(20201225) = 6 THEN 'Friday' END 요일
-
-SELECT DAYNAME(20201225) 요일;
+SELECT CASE WHEN DAYOFWEEK(20201225) = 6 THEN 'Friday' END 요일
 
     /*
 

@@ -5,10 +5,10 @@ SELECT * FROM employee;
 -- 1. employee 테이블에서 남자만 사원번호, 사원명, 주민번호, 연봉을 나타내세요.
 -- 단, 주민번호의 뒷6자리는 *처리하세요.
 SELECT
-    EMP_ID 사원번호
-     , EMP_NAME 설명
-     , RPAD(SUBSTRING(EMP_NO, 1, 8), 14, '*') 주민번호
-     , SALARY 연봉
+      EMP_ID 사원번호
+    , EMP_NAME 설명
+    , RPAD(SUBSTRING(EMP_NO, 1, 8), 14, '*') 주민번호
+    , SALARY 연봉
 FROM
     employee
 WHERE
@@ -31,9 +31,12 @@ WHERE
 
 
 -- 2. EMPLOYEE 테이블에서 사원명, 아이디(이메일 @ 앞부분)을 조회하세요.
+# SELECT
+#     EMP_NAME emp_name
+#      , LEFT(EMAIL , INSTR(EMAIL, '@')-1) email_id
 SELECT
-    EMP_NAME emp_name
-     , LEFT(EMAIL , INSTR(EMAIL, '@')-1) email_id
+    emp_name,
+    substring_index(email, '@', 1) email_id
 FROM
     employee;
 
@@ -65,6 +68,8 @@ INSERT INTO tbl_files VALUES(2, 'c:\\music.mp3');
 INSERT INTO tbl_files VALUES(3, 'c:\\documents\\resume.hwp');
 COMMIT;
 SELECT * FROM tbl_files;
+
+
 
 /*
 출력결과 :

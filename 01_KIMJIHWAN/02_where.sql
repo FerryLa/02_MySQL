@@ -336,7 +336,7 @@ insert into tbl_escape_watch values('금시계', '순금 99.99% 함유 고급시
 insert into tbl_escape_watch values('은시계', '고객 만족도 99.99점를 획득한 고급시계');
 
 -- escape문자 : \%
--- tbl_escape_watch 테이블에서 description컬럼에 99.99%라는 글자가 들어가있는 행만 추출하세요.
+tbl_escape_watch 테이블에서 description컬럼에 99.99%라는 글자가 들어가있는 행만 추출하세요.
 
 SELECT
       watchname
