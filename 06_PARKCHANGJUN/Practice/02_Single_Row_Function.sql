@@ -2,6 +2,25 @@ use empdb;
 
 -- 1. employee 테이블에서 남자만 사원번호, 사원명, 주민번호, 연봉을 나타내세요.
 -- 단, 주민번호의 뒷6자리는 *처리하세요.
+SELECT
+        *
+  FROM
+        EMPLOYEE;
+
+SELECT
+        EMP_ID 사원번호,
+        EMP_NAME 성명,
+        RPAD(SUBSTR(EMP_NO, 1, 8), 14, "*") 주민번호,
+        # 주민번호 첫번째에서 여덟번째까지 읽어들이고 9번째에서 14번째를 오른쪽으로 별로 채운다.
+        FORMAT((SALARY + (SALARY * IFNULL(bonus, 0))) * 12, 0) 연봉
+        # 연봉 + 보너스를 곱한 월급
+        # 만약 BOUNS가 NULL이면 0으로 치환
+        # FORMAT(..., 0) : 연봉 + 보너스를 곱한 월급을 불러오고 소수점은 없음
+  FROM
+        EMPLOYEE
+ WHERE
+        # 주민번호의 8번째 자리에서 한글자를 추출하고 그 숫자는 1 또는 3 추출.
+        SUBSTR(EMP_NO, 8, 1) IN ('1', '3'); # 남자만 추출
 
     /*
         --------------- 출력 예시 ------------------------
@@ -16,17 +35,29 @@ use empdb;
         209        심봉선     750206-1******   48,300,000
         ...
         총 row수는 15
-
-*/
-    SELECT    EMP_ID AS '사원번호'
-            , EMP_NAME AS '성명'
-            , RPAD(SUBSTRING(EMP_NO, 1, 8),14,'*') AS '주민번호'
-            ,  FORMAT((SALARY+(SALARY*ifnull(BONUS,0)))*12,0) AS '연봉'
-            FROM EMPLOYEE
-            WHERE SUBSTR(EMP_NO, 8,1) IN ('1','3');
-
+    */
 
 -- 2. EMPLOYEE 테이블에서 사원명, 아이디(이메일 @ 앞부분)을 조회하세요.
+SELECT
+        *
+  FROM
+        EMPLOYEE;
+
+SELECT
+        EMP_NAME,
+        # INSTR(email, '@') -> @의 위치 찾기
+        SUBSTR(EMAIL, 1, INSTR(email, '@') -1) EMAIL_ID
+  FROM
+        EMPLOYEE;
+
+SELECT
+        EMP_NAME,
+        # SUBSTRING(str, delim, count)
+        # str : 대상 문자열, delim : 기준이 될 구분자, count : 양수 = 왼쪽부터, 음수 = 오른쪽부터
+        SUBSTRING_INDEX(email, "@", 1) EMAIL_ID
+  FROM
+        EMPLOYEE;
+
     /*
         --------- 출력 예시 -----------
         emp_name        email_id
@@ -44,15 +75,6 @@ use empdb;
         총 row수는 24
     */
 
-    SELECT   EMP_NAME AS 'emp_name'
-           , INSERT(EMAIL,INSTR(EMAIL, '@'),16,'') AS 'email_id'
-            FROM
-                EMPLOYEE
-            WHERE EMAIL
-            LIKE  '%@%';
-
-
-
 -- 3. 파일경로를 제외하고 파일명만 아래와 같이 출력하세요.
 CREATE TABLE tbl_files (
                            file_no BIGINT,
@@ -65,6 +87,13 @@ INSERT INTO tbl_files VALUES(3, 'c:\\documents\\resume.hwp');
 COMMIT;
 SELECT * FROM tbl_files;
 
+SELECT
+        FILE_NO 파일번호,
+        # 파일 경로는 \\ 별로 구분되어지는데 -1 오른쪽에서 첫번째라는 뜻이기 때문에 파일명만 불러올 수 있음
+        SUBSTRING_INDEX(FILE_PATH, '\\', -1) 파일명
+  FROM
+        TBL_FILES;
+
 /*
 출력결과 :
 --------------------------
@@ -75,14 +104,3 @@ SELECT * FROM tbl_files;
 3             resume.hwp
 ---------------------------
 */
-
-SELECT      file_no  파일번호
-          , SUBSTRING_INDEX(file_path, '\\', '-1') 파일명
-        FROM
-            tbl_files;
-
-
-
-
-
-

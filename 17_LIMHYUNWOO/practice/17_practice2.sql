@@ -2,7 +2,18 @@ use empdb;
 
 -- 1. employee 테이블에서 남자만 사원번호, 사원명, 주민번호, 연봉을 나타내세요.
 -- 단, 주민번호의 뒷6자리는 *처리하세요.
-
+SELECT
+       A.EMP_ID  사원번호
+     , A.EMP_NAME 사원명
+     , RPAD(SUBSTRING(EMP_NO,1,8),14,'*') 주민번호
+     , FORMAT(A.SALARY*12+(A.SALARY*12*IFNULL(A.BONUS,0)),3) 연봉
+  FROM EMPLOYEE A
+ WHERE
+      A.EMP_NO LIKE '_______1%'
+    OR
+      A.EMP_NO LIKE '_______3%'
+ ORDER BY
+     1 ASC;
     /*
         --------------- 출력 예시 ------------------------
         사원번호    성명      주민번호           연봉
@@ -16,17 +27,15 @@ use empdb;
         209        심봉선     750206-1******   48,300,000
         ...
         총 row수는 15
+    */
 
-*/
-    SELECT    EMP_ID AS '사원번호'
-            , EMP_NAME AS '성명'
-            , RPAD(SUBSTRING(EMP_NO, 1, 8),14,'*') AS '주민번호'
-            ,  FORMAT((SALARY+(SALARY*ifnull(BONUS,0)))*12,0) AS '연봉'
-            FROM EMPLOYEE
-            WHERE SUBSTR(EMP_NO, 8,1) IN ('1','3');
 
 
 -- 2. EMPLOYEE 테이블에서 사원명, 아이디(이메일 @ 앞부분)을 조회하세요.
+SELECT
+       A.EMP_NAME emp_name
+     , LEFT(A.EMAIL,INSTR(A.EMAIL,'@')-1) email_id
+  FROM EMPLOYEE A;
     /*
         --------- 출력 예시 -----------
         emp_name        email_id
@@ -44,25 +53,17 @@ use empdb;
         총 row수는 24
     */
 
-    SELECT   EMP_NAME AS 'emp_name'
-           , INSERT(EMAIL,INSTR(EMAIL, '@'),16,'') AS 'email_id'
-            FROM
-                EMPLOYEE
-            WHERE EMAIL
-            LIKE  '%@%';
-
-
-
 -- 3. 파일경로를 제외하고 파일명만 아래와 같이 출력하세요.
+DROP TABLE tbl_files;
 CREATE TABLE tbl_files (
                            file_no BIGINT,
                            file_path VARCHAR(500)
 );
 -- drop table tbl_files
-INSERT INTO tbl_files VALUES(1, 'c:\\abc\\deft\\salesinfo.xls');
-INSERT INTO tbl_files VALUES(2, 'c:\\music.mp3');
-INSERT INTO tbl_files VALUES(3, 'c:\\documents\\resume.hwp');
-COMMIT;
+INSERT INTO tbl_files VALUES( 1, 'salesinfo.xls');
+INSERT INTO tbl_files VALUES(2, 'music.mp3');
+INSERT INTO tbl_files VALUES(3, 'resume.hwp');
+Commit;
 SELECT * FROM tbl_files;
 
 /*
@@ -75,14 +76,4 @@ SELECT * FROM tbl_files;
 3             resume.hwp
 ---------------------------
 */
-
-SELECT      file_no  파일번호
-          , SUBSTRING_INDEX(file_path, '\\', '-1') 파일명
-        FROM
-            tbl_files;
-
-
-
-
-
 

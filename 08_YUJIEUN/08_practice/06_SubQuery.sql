@@ -5,13 +5,19 @@
         ---------------------------------------
         17700000
     */
+-- 서브쿼리에서 deptno별 합계를 먼저 구하고
+-- 바깥 쿼리에서 그 합계들 중 max 값을 구한다.
+SELECT MAX(total) 총합
+FROM (
+         SELECT DEPT_CODE
+              , SUM(SALARY) total
+         FROM employee
+         GROUP BY DEPT_CODE
+     ) sub;
 
-SELECT MAX(salSum) 총합
-    FROM (SELECT DEPT_CODE, SUM(SALARY) AS salSum
-          FROM employee
-          WHERE DEPT_CODE IS NOT NULL
-          GROUP BY DEPT_CODE
-          ) AS tbl_DEPT_SAL;
+
+
+
 
 -- 2. 서브쿼리를 이용하여 영업부인 직원들의 사원번호, 사원명, 부서코드, 급여를 출력하세요.
 --    참고. 영업부인 직원은 부서명에 ‘영업’이 포함된 직원임
@@ -30,14 +36,17 @@ SELECT MAX(salSum) 총합
         205          정중하      D6             3900000
     */
 
-    SELECT EMP_ID 사원번호, EMP_NAME 사원명, DEPT_CODE 부서코드, SALARY 급여
-    FROM employee
-    WHERE DEPT_CODE IN (SELECT DEPT_ID
-                        FROM department
-                        WHERE DEPT_TITLE LIKE '%영업%'
-                        );
+SELECT EMP_ID 사원번호
+     , EMP_NAME 사원명
+     , DEPT_CODE 부서코드
+     , SALARY 급여
+    FROM EMPLOYEE
+     WHERE DEPT_CODE IN (SELECT DEPT_ID
+                            FROM DEPARTMENT
+                            WHERE DEPT_TITLE LIKE '%영업%');
 
 -- 3. 서브쿼리와 JOIN을 이용하여 영업부인 직원들의 사원번호, 직원명, 부서명, 급여를 출력하세요.
+
     /*
         ----------------- 출력 예시 --------------------
         사원번호    직원명        부서명     급여
@@ -51,13 +60,19 @@ SELECT MAX(salSum) 총합
         203         송은희        해외영업2부  2800000
         204         유재식        해외영업2부  3400000
         205         정중하        해외영업2부  3900000
+
     */
-    SELECT e.EMP_ID 사원번호, e.EMP_NAME 직원명, d.DEPT_TITLE 부서명, e.SALARY 급여
-    FROM employee e
-    JOIN department d ON e.DEPT_CODE = d.DEPT_ID
-    WHERE e.DEPT_CODE IN (SELECT DEPT_ID
-                          FROM department
-                          WHERE DEPT_TITLE LIKE '%영업%');
+
+    SELECT a.EMP_ID 사원번호
+            ,a.EMP_NAME 직원명
+            ,b.DEPT_TITLE 부서명
+            ,a.SALARY 급여
+            FROM EMPLOYEE a
+            JOIN DEPARTMENT b ON a.DEPT_CODE= b.DEPT_ID
+                WHERE DEPT_CODE IN(
+                SELECT DEPT_ID
+                FROM DEPARTMENT
+                WHERE DEPT_TITLE LIKE '%영업%');
 
 -- 4. 1. JOIN을 이용하여 부서의 부서코드, 부서명, 해당 부서가 위치한 지역명, 국가명을 추출하는 쿼리를 작성하세요.
 --    2. 위 1에서 작성한 쿼리를 서브쿼리로 활용하여 모든 직원의 사원번호, 사원명, 급여, 부서명, (부서의) 국가명을 출력하세요.
@@ -78,24 +93,10 @@ SELECT MAX(salSum) 총합
     201             송종기     6000000   총무부            한국
     ...
     총 row수 22개
+
     */
 
--- 1번
-SELECT d.DEPT_ID 부서코드, d.DEPT_TITLE 부서명, l.LOCAL_NAME 지역명, n.NATIONAL_NAME 국가명
-FROM department d
-JOIN location l ON l.LOCAL_CODE = d.LOCATION_ID
-JOIN nation n ON n.NATIONAL_CODE = l.NATIONAL_CODE;
-
--- 2번
-SELECT e.EMP_ID 사원번호, e.EMP_NAME 사원명, e.SALARY 급여,
-       st.DEPT_TITLE 부서명, st.NATIONAL_NAME '(부서의) 국가명'
-  FROM employee e
-  JOIN (SELECT d.DEPT_ID, d.DEPT_TITLE, l.LOCAL_NAME, n.NATIONAL_NAME
-            FROM department d
-            JOIN location l ON l.LOCAL_CODE = d.LOCATION_ID
-            JOIN nation n ON n.NATIONAL_CODE = l.NATIONAL_CODE) AS st
-    ON st.DEPT_ID = e.DEPT_CODE
-ORDER BY st.NATIONAL_NAME DESC;
+    SELECT 
 
 
 

@@ -16,15 +16,18 @@ use empdb;
         209        심봉선     750206-1******   48,300,000
         ...
         총 row수는 15
+    */
 
-*/
-    SELECT    EMP_ID AS '사원번호'
-            , EMP_NAME AS '성명'
-            , RPAD(SUBSTRING(EMP_NO, 1, 8),14,'*') AS '주민번호'
-            ,  FORMAT((SALARY+(SALARY*ifnull(BONUS,0)))*12,0) AS '연봉'
-            FROM EMPLOYEE
-            WHERE SUBSTR(EMP_NO, 8,1) IN ('1','3');
-
+    SELECT
+           emp_id 사원번호
+         , emp_name 성명
+    #      , concat(substr(emp_no,1,8), '******') 주민번호
+         , rpad(substr(emp_no, 1, 8), 14, '*') 주민번호
+         , format((salary + (salary * ifnull(bonus, 0))) * 12, 0) 연봉
+    FROM
+         EMPLOYEE
+    WHERE
+        substr(emp_no,8,1) in ('1','3');
 
 -- 2. EMPLOYEE 테이블에서 사원명, 아이디(이메일 @ 앞부분)을 조회하세요.
     /*
@@ -43,15 +46,11 @@ use empdb;
         ...
         총 row수는 24
     */
-
-    SELECT   EMP_NAME AS 'emp_name'
-           , INSERT(EMAIL,INSTR(EMAIL, '@'),16,'') AS 'email_id'
-            FROM
-                EMPLOYEE
-            WHERE EMAIL
-            LIKE  '%@%';
-
-
+    SELECT
+        emp_name,
+        substring_index(email, '@', 1) email_id
+    FROM
+        employee;
 
 -- 3. 파일경로를 제외하고 파일명만 아래와 같이 출력하세요.
 CREATE TABLE tbl_files (
@@ -76,13 +75,8 @@ SELECT * FROM tbl_files;
 ---------------------------
 */
 
-SELECT      file_no  파일번호
-          , SUBSTRING_INDEX(file_path, '\\', '-1') 파일명
-        FROM
-            tbl_files;
-
-
-
-
-
-
+SELECT
+    file_no 파일번호,
+    SUBSTRING_INDEX(file_path, '\\', -1) AS "파일명"
+FROM
+    TBL_FILES;

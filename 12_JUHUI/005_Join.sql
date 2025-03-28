@@ -1,19 +1,6 @@
--- 1. 재직 중이고 휴대폰 마지막 자리가 2인 직원 중 입사일이 가장 최근인 직원 3명의 사원번호,
+-- 1. 재직 중(QUIT_YN)이고 휴대폰 마지막 자리가 2인 직원 중 입사일이 가장 최근인 직원 3명의 사원번호,
 -- 사원명, 전화번호, 입사일, 퇴직여부를 출력하세요.
 -- 참고. 퇴사한 직원은 퇴직여부 컬럼값이 ‘Y’이고, 재직 중인 직원의 퇴직여부 컬럼값은 ‘N’ (JOIN은 아님)
-SELECT
-       EMP_ID 사원번호
-     , EMP_NAME 사원명
-     , PHONE 전화번호
-     , HIRE_DATE 입사일
-     , QUIT_YN 퇴직여부
-  FROM EMPLOYEE A
-  WHERE
-       QUIT_YN = 'N'
-      AND
-       PHONE LIKE '%2'
-  ORDER BY HIRE_DATE DESC
-  LIMIT 3;
 
 /*
     -------------------- 출력 예시 ----------------------------
@@ -24,24 +11,21 @@ SELECT
     206         박나라     01096935222     2008-04-02 00:00:00,N
 */
 
-
--- 2. 재직 중인 ‘대리’들의 직원명, 직급명, 급여, 사원번호, 이메일, 전화번호, 입사일을 출력하세요.
--- 단, 급여를 기준으로 내림차순 출력하세요.
 SELECT
-       A.EMP_NAME 직원명
-     , B.JOB_NAME 직급명
-     , A.SALARY 급여
-     , A.EMP_NO 주민번호
-     , A.EMAIL 이메일
-     , A.PHONE 전화번호
-     , A.HIRE_DATE 입사일
-  FROM EMPLOYEE A
-  JOIN JOB B ON A.JOB_CODE = B.JOB_CODE
-  WHERE
-      JOB_NAME ='대리'
-    AND
-      A.QUIT_YN = 'N'
-  ORDER BY 3 DESC;
+        emp_id 사원번호
+     , emp_name 사원명
+     , phone 전화번호
+     , hire_date 입사일
+     , quit_yn 퇴직여부
+    FROM employee
+    WHERE quit_yn = 'N'
+    AND phone LIKE '%2'
+    ORDER BY hire_date DESC
+    LIMIT 3;
+
+
+-- 2. 재직 중인 ‘대리’들의 직원명, 직급명, 급여, 사원번호, 주민번호, 이메일, 전화번호, 입사일을 출력하세요.
+-- 단, 급여를 기준으로 내림차순 출력하세요.
 
 /*
     ---------------------------------- 출력 예시 ------------------------------------------------
@@ -52,51 +36,41 @@ SELECT
     장쯔위     대리      2550000     780923-2234542  jang_zw@ohgiraffers.com   2015-06-17 00:00:00
     하동운     대리      2320000     621111-1785463  ha_dh@ohgiraffers.com     1999-12-31 00:00:00
     전형돈     대리      2000000     830807-1121321  jun_hd@ohgiraffers.com    2012-12-12 00:00:00
-
 */
+-- 직급명이 대리인건 job 테이블에 있음. job_code(j6)와 job_name(대리)으로 구성되어있음.
+
+SELECT a.EMP_NAME 사원명, b.JOB_NAME 직급명, a.SALARY 급여
+     , a.EMP_NO 주민번호, a.EMAIL 이메일, a.PHONE 전화번호, a.HIRE_DATE 입사일
+FROM employee a
+         JOIN JOB b ON a.JOB_CODE = b.JOB_CODE
+WHERE a.QUIT_YN = 'N'
+  AND b.JOB_NAME = '대리'
+ORDER BY a.SALARY DESC;
+
+
 
 -- 3. 재직 중인 직원들을 대상으로 부서별 인원, 급여 합계, 급여 평균을 출력하고,
 --    마지막에는 전체 인원과 전체 직원의 급여 합계 및 평균이 출력되도록 하세요.
 --    단, 출력되는 데이터의 헤더는 컬럼명이 아닌 ‘부서명’, ‘인원’, ‘급여합계’, ‘급여평균’으로 출력되도록 하세요. (ROLLUP사용)
-SELECT
-       B.DEPT_TITLE 부서명
-     , COUNT(*) 인원
-     , SUM(A.SALARY)  "급여 합계"
-     , AVG(A.SALARY) "급여 평균"
-  FROM EMPLOYEE A
-  JOIN DEPARTMENT B ON A.DEPT_CODE = B.DEPT_ID
-  WHERE A.QUIT_YN = 'N'
-  GROUP BY DEPT_TITLE
-  WITH ROLLUP
-  ORDER BY
-    부서명 IS NULL ASC;
+
 /*
     -------------------------- 출력 예시 -----------------------------
     부서명         인원      급여합계            급여평균
     ---------------------------------------------------------------
-    기술지원부       2        4550000            2275000
-    인사관리부       3        7820000            2606666.6666666665
-    총무부          3       17700000            5900000
+    기술지원부       2       4550000             2275000
+    인사관리부       3       7820000             2606666.6666666665
+    총무부           3       17700000            5900000
     해외영업1부      6       15760000            2626666.6666666665
     해외영업2부      3       10100000            3366666.6666666665
     회계관리부       4       11000000            2750000
-     <null>       21      66930000            3187142.8571428573
+    <null>          21       66930000            3187142.8571428573
 
 */
 
 
 -- 4. 전체 직원의 사원명, 주민등록번호, 전화번호, 부서명, 직급명을 출력하세요.
 --    단, 입사일을 기준으로 오름차순 정렬되도록 출력하세요.
-SELECT
-       EMP_NAME 사원명
-     , EMP_NO 주민등록번호
-     , PHONE 전화번호
-     , C.DEPT_TITLE 부서명
-     , B.JOB_NAME 직급명
-  FROM EMPLOYEE A
-  LEFT JOIN JOB B ON A.JOB_CODE = B.JOB_CODE
-  LEFT JOIN DEPARTMENT C ON A.DEPT_CODE = C.DEPT_ID
-ORDER BY A.HIRE_DATE ASC;
+
 
 /*
     ------------------- 출력 예시 ---------------------------------
@@ -114,17 +88,7 @@ ORDER BY A.HIRE_DATE ASC;
 */
 
 -- 5. 2020년 12월 25일이 무슨 요일인지 조회하시오.(Join아님)
-SELECT
 
-    CASE
-        WHEN DAYOFWEEK('2020-12-25') = '1' THEN 'Sunday'
-        WHEN DAYOFWEEK('2020-12-25') = '2' THEN 'Monday'
-        WHEN DAYOFWEEK('2020-12-25') = '3' THEN 'Tuesday'
-        WHEN DAYOFWEEK('2020-12-25') = '4' THEN 'Wednesday'
-        WHEN DAYOFWEEK('2020-12-25') = '5' THEN 'Friday'
-        WHEN DAYOFWEEK('2020-12-25') = '6' THEN 'Friday'
-        WHEN DAYOFWEEK('2020-12-25') = '7' THEN 'Sunday'
-    END 요일
 /*
     -------- 출력예시 ---------
     요일
@@ -134,21 +98,6 @@ SELECT
 
 -- 6. 주민번호가 70년대 생이면서 성별이 여자이고,
 --    성이 전씨인 직원들의 사원명, 주민번호, 부서명, 직급명을 조회하시오.
-SELECT
-       a.EMP_NAME 사원명
-     , a.EMP_NO 주민번호
-     , b.DEPT_TITLE 부서명
-     , c.JOB_NAME 직급명
-  FROM EMPLOYEE a
-  JOIN DEPARTMENT b ON a.DEPT_CODE = b.DEPT_ID
-  JOIN JOB c ON a.JOB_CODE = c.JOB_CODE
-WHERE
-      a.EMP_NO LIKE '7%'
-    AND
-      a.EMP_NO LIKE '_______2%'
-    AND
-      a.EMP_NAME LIKE '전%'
-;
 
 /*
     -------------------- 출력 예시 -------------------------
@@ -159,18 +108,7 @@ WHERE
 
 
 -- 7. 이름에 '형'자가 들어가는 직원들의 사번, 사원명, 직급명을 조회하시오.
-SELECT
-       A.EMP_ID 사번
-     , A.EMP_NAME 사원명
-     , B.JOB_NAME
-  FROM EMPLOYEE A
-  JOIN JOB B ON A.JOB_CODE = B.JOB_CODE
-WHERE
-       EMP_NAME LIKE '형%'
-    or
-       EMP_NAME LIKE '_형_'
-    or
-       EMP_NAME LIKE '%형';
+
 /*
     ------------------- 출력 예시 -----------------------
     사번      사원명    직급명
@@ -179,17 +117,6 @@ WHERE
 */
 
 -- 8. 해외영업팀에 근무하는 사원명, 직급명, 부서코드, 부서명을 조회하시오.
-SELECT
-       A.EMP_NAME 사원명
-     , B.JOB_NAME 직급명
-     , A.DEPT_CODE 부서코드
-     , C.DEPT_TITLE 부서명
-  FROM EMPLOYEE A
-  JOIN JOB B ON A.JOB_CODE = B.JOB_CODE
-  JOIN DEPARTMENT C ON A.DEPT_CODE = C.DEPT_ID
-WHERE
-    C.DEPT_TITLE LIKE '해외영업%';
-
 /*
     ------------------- 출력 예시 ---------------------------
     사원명     직급명     부서코드        부서명
@@ -205,6 +132,7 @@ WHERE
     정중하     부장        D6             해외영업2부
 
 */
+
 
 
 
