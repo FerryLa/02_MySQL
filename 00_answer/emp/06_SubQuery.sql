@@ -76,9 +76,16 @@ FROM (SELECT DEPT_CODE, SUM(SALARY) as SAL_SUM
     총 row수 22개
 
     */
-    SELECT E.EMP_ID 사원번호, E.EMP_NAME 사원명, E.SALARY 급여, DLN.DEPT_TITLE 부서명, DLN.NATIONAL_NAME "(부서의) 국가명"
+    SELECT E.EMP_ID 사원번호,
+           E.EMP_NAME 사원명,
+           E.SALARY 급여,
+           DLN.DEPT_TITLE 부서명,
+           DLN.NATIONAL_NAME "(부서의) 국가명"
     FROM EMPLOYEE E
-             JOIN (SELECT D.DEPT_ID, D.DEPT_TITLE, N.NATIONAL_NAME
+             JOIN (SELECT
+                       D.DEPT_ID,
+                       D.DEPT_TITLE,
+                       N.NATIONAL_NAME
                    FROM DEPARTMENT D
                             JOIN LOCATION L ON (D.LOCATION_ID = L.LOCAL_CODE)
                             JOIN NATION N ON (L.NATIONAL_CODE = N.NATIONAL_CODE)) DLN
