@@ -9,10 +9,12 @@ SELECT
     , EMP_NAME 설명
     , RPAD(SUBSTRING(EMP_NO, 1, 8), 14, '*') 주민번호
     , SALARY 연봉
+# ,format((salary + (salary * ifnull(bonus, 0))) * 12, 0) 연봉
 FROM
     employee
 WHERE
     EMP_NO LIKE '%-1%' OR EMP_NO LIKE '%-3%';
+# substr(emp_no,8,1) in ('1','3');
 
 /*
     --------------- 출력 예시 ------------------------

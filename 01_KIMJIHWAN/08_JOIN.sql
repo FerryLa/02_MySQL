@@ -115,6 +115,3 @@ FROM employee a
 
 
 
-SELECT
-
-
