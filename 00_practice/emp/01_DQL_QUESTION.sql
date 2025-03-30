@@ -18,8 +18,21 @@ use empdb;
 
 */
 
--- 3. employee 테이블에서 메일주소 '_'의 앞이 4자이면서, DEPT_CODE가 D9 또는 D5이고 고용일이 90/01/01 ~ 01/12/31이면서, 월급이 270만원 이상인 사원의 전체 정보를 출력하시오
+-- 3. employee 테이블에서 메일주소 '_'의 앞이 4자이면서, DEPT_CODE가 D9 또는 D5이고
+-- 고용일이 90/01/01 ~ 01/12/31이면서, 월급이 270만원 이상인 사원의 전체 정보를 출력하시오
 
+SELECT
+    *
+FROM
+    employee
+WHERE
+    EMAIL LIKE '____\_%'
+  AND
+    DEPT_CODE IN ('D9','D5')
+  AND
+    CAST(HIRE_DATE AS DATE) BETWEEN '1990-01-01' AND '2001-12-31'
+  AND
+    SALARY > 2700000;
 /*
     출력
     201 송종기 631126-1548654 song_jk@ohgiraffers.com 01045686656 D9 J2 S1 6000000  200 2001-09-01 00:00:00 N

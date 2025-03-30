@@ -16,15 +16,15 @@ use empdb;
         209        심봉선     750206-1******   48,300,000
         ...
         총 row수는 15
-    */
 
+*/
     SELECT    EMP_ID AS '사원번호'
             , EMP_NAME AS '성명'
             , RPAD(SUBSTRING(EMP_NO, 1, 8),14,'*') AS '주민번호'
-            ,  FORMAT(12*SALARY+12*SALARY*BONUS,3) AS '연봉'
+            ,  FORMAT((SALARY+(SALARY*ifnull(BONUS,0)))*12,0) AS '연봉'
             FROM EMPLOYEE
-            WHERE SUBSTRING(EMP_NO, 8) LIKE '1%'
-            OR SUBSTRING(EMP_NO, 8) LIKE '3%' ;
+            WHERE SUBSTR(EMP_NO, 8,1) IN ('1','3');
+
 
 -- 2. EMPLOYEE 테이블에서 사원명, 아이디(이메일 @ 앞부분)을 조회하세요.
     /*
@@ -76,8 +76,8 @@ SELECT * FROM tbl_files;
 ---------------------------
 */
 
-SELECT      file_no AS '파일번호'
-          , INSERT(file_path,INSTR(file_path, ''),3 , '') AS '파일명'
+SELECT      file_no  파일번호
+          , SUBSTRING_INDEX(file_path, '\\', '-1') 파일명
         FROM
             tbl_files;
 
