@@ -111,7 +111,7 @@ SELECT
      , DEPT_TITLE 부서명
      , JOB_NAME 직급명
   FROM EMPLOYEE
-  JOIN DEPARTMENT ON EMPLOYEE.DEPT_CODE = DEPARTMENT.DEPT_ID
+  LEFT JOIN DEPARTMENT ON EMPLOYEE.DEPT_CODE = DEPARTMENT.DEPT_ID
   JOIN JOB ON EMPLOYEE.JOB_CODE = JOB.JOB_CODE
  ORDER BY HIRE_DATE;
 
@@ -124,6 +124,8 @@ SELECT
         ---------------------------
         Friday
     */
+SELECT DATE_FORMAT('20201225', '%W');
+
 
 -- 6. 주민번호가 70년대 생이면서 성별이 여자이고,
 --    성이 전씨인 직원들의 사원명, 주민번호, 부서명, 직급명을 조회하시오.
