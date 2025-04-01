@@ -1,21 +1,21 @@
 -- =================================
 -- BUILT IN FUNCTIONS
 -- =================================
--- 하나의 큰 프로그램에서 반복적으로 사용되는 부분들을 분리하여 작성해 놓은 작은 서브 프로그램으로, 호출하며 값을 전달하면
--- 수행결과를 리턴하는 방식으로 사용된다.
--- 호출(값 전달) -> 작업 수행 -> 결과값 리턴
-
+# 하나의 큰 프로그램에서 반복적으로 사용되는 부분들을 분리하여 작성해 놓은 작은 서브 프로그램으로, 호출하며 값을 전달하면
+# 수행결과를 리턴하는 방식으로 사용된다.
+# 호출(값 전달) -> 작업 수행 -> 결과값 리턴
+#
 # API Doc
--- https://dev.mysql.com/doc/refman/8.0/en/built-in-function-reference.html
--- https://www.w3schools.com/mysql/mysql_ref_functions.asp
-
+# https://dev.mysql.com/doc/refman/8.0/en/built-in-function-reference.html
+# https://www.w3schools.com/mysql/mysql_ref_functions.asp
+#
 # 함수의 유형
--- 단일행처리 함수 : 각 행마다 반복 호출되어서 호출된 수만큼 결과를 리턴한다.
--- 1. 문자처리 함수
--- 2. 숫자처리 함수
--- 3. 날짜시간처리 함수
--- 4. 기타함수
--- 그룹함수 : 여러행들이 그룹으로 형성되어 적용된다. 그룹당 1개의 결과를 리턴한다.
+# 단일행처리 함수 : 각 행마다 반복 호출되어서 호출된 수만큼 결과를 리턴한다.
+# 1. 문자처리 함수
+# 2. 숫자처리 함수
+# 3. 날짜시간처리 함수
+# 4. 기타함수
+# 그룹함수 : 여러행들이 그룹으로 형성되어 적용된다. 그룹당 1개의 결과를 리턴한다.
 
 -- =====================================
 -- 문자처리함수
@@ -26,10 +26,10 @@
 -- CHAR : 아스키 코드로 문자 추출
 SELECT ASCII('A'), CHAR(65);
 
--- BIT_LENGTH(문자열), CHAR_LENGTH(문자열), LENGTH(문자열)
--- BIT_LENGTH: 할당된 비트 크기 반환
--- CHAR_LENGTH: 문자열의 길이 반환
--- LENGTH : 할당된 BYTE 크기
+# BIT_LENGTH(문자열), CHAR_LENGTH(문자열), LENGTH(문자열)
+# BIT_LENGTH: 할당된 비트 크기 반환
+# CHAR_LENGTH: 문자열의 길이 반환
+# LENGTH : 할당된 BYTE 크기
 
 
 SELECT menu_name, BIT_LENGTH(menu_name), CHAR_LENGTH(menu_name), LENGTH(menu_name)
@@ -56,7 +56,7 @@ SELECT
 -- FIND_IN_SET: 찾을 문자열의 위치 반환, 문자열 리스트의 구분자는 반드시 ,여야 한다.
 SELECT  FIELD('딸기','사과','딸기','바나나');
 
-SELECT * FROM  tbl_menu FINO_IN_SET(menu_code,12) DESC, FINO_IN_SET(menu_code,12) DESC;
+SELECT * FROM tbl_menu ORDER BY FIND_IN_SET(menu_code, 12) DESC, FIND_IN_SET(menu_code, 16) DESC;
 
 
 -- INSTR(기준 문자열, 부분 문자열)
@@ -120,7 +120,7 @@ SELECT TRIM('     MYSQL     '), TRIM(BOTH '@'FROM '@@@@MYSQL@@@@');
 
 -- REPEAT(문자열, 횟수)
 -- REPEAT: 문자열을 횟수만큼 반복
-SELECT REPEAT('😘', 100);
+SELECT REPEAT('?', 100);
 
 -- REPLACE(문자열, 찾을 문자열, 바꿀 문자열)
 -- REPLACE: 문자열에서 문자열을 찾아 치환
@@ -129,6 +129,7 @@ SELECT REPLACE('마이SQL', '마이','My');
 -- REVERSE(문자열)
 -- REVERSE: 문자열의 순서를 거꾸로 뒤집는다.
 SELECT REVERSE('stressed');
+
 
 -- SPACE(길이)
 -- SPACE: 길이만큼의 공백을 반환

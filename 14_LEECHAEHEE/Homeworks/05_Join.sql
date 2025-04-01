@@ -73,11 +73,18 @@ ORDER BY SALARY DESC;
         <null>          21       66930000            3187142.8571428573
 
     */
-
+SELECT
+       a.DEPT_TITLE 부서명,
+       COUNT(*) 인원,
+       SUM(b.SALARY) 급여합계,
+       AVG(b.SALARY) 급여평균
+  FROM department a
+  JOIN employee b ON a.DEPT_ID = b.DEPT_CODE
+ WHERE b.QUIT_YN = 'N'
+ GROUP BY a.DEPT_TITLE WITH ROLLUP;
 
 -- 4. 전체 직원의 사원명, 주민등록번호, 전화번호, 부서명, 직급명을 출력하세요.
 --    단, 입사일을 기준으로 오름차순 정렬되도록 출력하세요.
-
 
     /*
         ------------------- 출력 예시 ---------------------------------
@@ -93,6 +100,12 @@ ORDER BY SALARY DESC;
         ...
         총 row 수는 24
     */
+SELECT a.EMP_NAME 사원명, a.EMP_NO 주민등록번호,
+       a.PHONE 전화번호, b.DEPT_TITLE 부서명 , c.JOB_NAME 직급명
+FROM employee a
+LEFT JOIN department b on a.DEPT_CODE = b.DEPT_ID
+JOIN job c on a.JOB_CODE = c.JOB_CODE
+ORDER BY a.HIRE_DATE;
 
 -- 5. 2020년 12월 25일이 무슨 요일인지 조회하시오.(Join아님)
 
@@ -102,7 +115,15 @@ ORDER BY SALARY DESC;
         ---------------------------
         Friday
     */
-
+SELECT
+    CASE DAYOFWEEK('2020-12-25')
+    WHEN 1 THEN 'Sunday'
+    WHEN 2 THEN 'Monday'
+    WHEN 3 THEN 'Tuesday'
+    WHEN 4 THEN 'Wednesday'
+    WHEN 5 THEN 'Thursday'
+    WHEN 6 THEN 'Friday'
+    ELSE 'Saturday' END AS 요일;
 -- 6. 주민번호가 70년대 생이면서 성별이 여자이고,
 --    성이 전씨인 직원들의 사원명, 주민번호, 부서명, 직급명을 조회하시오.
 
@@ -112,7 +133,17 @@ ORDER BY SALARY DESC;
         ---------------------------------------------------------
         전지연         770808-2665412       인사관리부    대리
     */
-
+SELECT
+      a.EMP_NAME 사원명,
+      a.EMP_NO 주민번호,
+      b.DEPT_TITLE 부서명,
+      c.JOB_NAME 직급명
+FROM  employee a
+JOIN  department b on a.DEPT_CODE = b.DEPT_ID
+JOIN  job c on a.JOB_CODE = c.JOB_CODE
+WHERE a.EMP_NO LIKE '7%'
+AND  SUBSTR(a.EMP_NO, 8, 1) IN (2, 4)
+AND  a.EMP_NAME LIKE '전%';
 
 -- 7. 이름에 '형'자가 들어가는 직원들의 사번, 사원명, 직급명을 조회하시오.
 
@@ -122,6 +153,13 @@ ORDER BY SALARY DESC;
         -----------------------------------------------------
         211        전형돈    대리
     */
+SELECT
+    a.EMP_ID 사번,
+    a.EMP_NAME 사원명,
+    b.JOB_NAME 직급명
+FROM  employee a
+JOIN  job b on a.JOB_CODE = b.JOB_CODE
+WHERE a.EMP_NAME LIKE '%형%';
 
 -- 8. 해외영업팀에 근무하는 사원명, 직급명, 부서코드, 부서명을 조회하시오.
     /*
@@ -137,9 +175,16 @@ ORDER BY SALARY DESC;
         송은희     차장        D6             해외영업2부
         유재식     부장        D6             해외영업2부
         정중하     부장        D6             해외영업2부
-
     */
-
+SELECT
+    a.EMP_NAME 사원명,
+    c.JOB_NAME 직급명,
+    a.DEPT_CODE 부서코드,
+    b.DEPT_TITLE 부서명
+FROM  employee a
+JOIN  department b on a.DEPT_CODE = b.DEPT_ID
+JOIN  job c on a.JOB_CODE = c.JOB_CODE
+WHERE b.DEPT_TITLE LIKE '해외영업%';
 
 
 

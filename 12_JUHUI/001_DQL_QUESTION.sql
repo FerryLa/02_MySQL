@@ -47,7 +47,7 @@ SELECT
     FROM
         employee
     WHERE
-        (EMAIL LIKE '____\_%')
+        (email LIKE '____\_%')
     AND
         (dept_code = 'D9' OR dept_code = 'D5')
     AND
@@ -65,6 +65,14 @@ SELECT
     ...
 
 */
+SELECT
+    emp_ID, emp_name
+    FROM
+        employee
+    WHERE
+        quit_yn = 'N'
+    ORDER BY
+        emp_name;
 
 
 
@@ -78,7 +86,12 @@ SELECT
     ...
 
 */
-
+SELECT
+    emp_name
+     , emp_no
+     , hire_date
+     , quit_yn
+    FROM employee;
 
 -- 6. 재직 중이고 휴대폰 마지막 자리가 2인 직원 중 입사일이 가장 최근인 직원 3명의 사원번호,
 -- 직원명, 전화번호, 입사일, 퇴직여부를 출력하세요.
@@ -90,7 +103,20 @@ SELECT
         211	전형돈	01044432222	2012-12-12 00:00:00	N
         206	박나라	01096935222	2008-04-02 00:00:00	N
     */
-
+SELECT
+      emp_id
+    , emp_name
+    , phone
+    , hire_date
+    , quit_yn
+    FROM
+        employee
+    WHERE
+        phone LIKE '%2'
+    AND
+        quit_yn = 'N'
+    ORDER BY hire_date DESC
+    LIMIT 3;
 
 
 -- 7. <1단계> 전체 직원 중 연결된 관리자가 있는 직원의 인원을 출력하세요.
@@ -102,3 +128,9 @@ SELECT
 
         16
     */
+
+SELECT
+    COUNT(*)
+    FROM employee
+    WHERE manager_id IS NOT NULL
+    ORDER BY emp_name;

@@ -17,6 +17,7 @@ SELECT EMP_ID 사원번호, EMP_NAME 사원명, PHONE 전화번호, HIRE_DATE �
  ORDER BY HIRE_DATE DESC
  LIMIT 3;
 
+
 -- 2. 재직 중인 ‘대리’들의 직원명, 직급명, 급여, 사원번호, 주민번호, 이메일, 전화번호, 입사일을 출력하세요.
 -- 단, 급여를 기준으로 내림차순 출력하세요.
 

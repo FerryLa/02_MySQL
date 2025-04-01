@@ -2,7 +2,6 @@ USE empdb;
 
 -- 1. employee 테이블에서 남자만 사원번호, 사원명, 주민번호, 연봉을 나타내세요.
 -- 단, 주민번호의 뒷6자리는 *처리하세요.
-
 /*
     --------------- 출력 예시 ------------------------
     사원번호    성명      주민번호           연봉
@@ -18,17 +17,14 @@ USE empdb;
     총 row수는 15
 */
 SELECT
-    emp_id                                 AS 사원번호
-  , emp_name                               AS 성명
-  , RPAD(SUBSTRING(emp_no, 1, 8), 14, '*') AS 주민번호
-#   , CONCAT(SUBSTRING(emp_no, 1, 8), '******') AS 주민번호
-  , FORMAT(salary * 12, 0)                 AS 월급
+    emp_id                                                 AS 사원번호
+  , emp_name                                               AS 성명
+  , RPAD(SUBSTR(emp_no, 1, 8), 14, '*')                    AS 주민번호
+  , FORMAT((salary + (salary * IFNULL(bonus, 0))) * 12, 0) AS 연봉
   FROM
       employee
  WHERE
-     SUBSTRING(emp_no, 8, 1) IN ('1', '3', '5', '7');
-
-
+     SUBSTR(emp_no, 8, 1) IN ('1', '3');
 
 -- 2. EMPLOYEE 테이블에서 사원명, 아이디(이메일 @ 앞부분)을 조회하세요.
 /*
@@ -49,7 +45,8 @@ SELECT
 */
 SELECT
     emp_name
-  , SUBSTRING_INDEX(email, '@', 1) AS email_id
+#   , substr(email,1, instr(email, '@') -1)
+  , SUBSTRING_INDEX(email, '@', 1)
   FROM
       employee;
 
@@ -76,7 +73,6 @@ COMMIT;
 SELECT *
   FROM
       tbl_files;
-
 /*
 출력결과 :
 --------------------------
@@ -88,7 +84,8 @@ SELECT *
 ---------------------------
 */
 SELECT
-    file_no
-  , SUBSTRING_INDEX(file_path, '\\', -1)
+    file_no as 파일번호
+  , substring_index(file_path, '\\', -1) as 파일명
   FROM
       tbl_files;
+

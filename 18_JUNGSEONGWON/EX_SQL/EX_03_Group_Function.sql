@@ -52,14 +52,10 @@ WHERE DEPT_CODE = 'D5';
 
 -- 4. 남/여 사원 급여합계를 동시에 표현(가공된 컬럼의 합계)
 -- 남여 구분하는 법을 모르겠음
-SELECT
+SELECT FORMAT(SUM(CASE WHEN SUBSTRING(EMP_NO, 8, 1) IN (1, 3) THEN SALARY ELSE 0 END),0) "남사원 급여합계"
+       , FORMAT(SUM(CASE WHEN SUBSTRING(EMP_NO, 8, 1) IN (2, 4) THEN SALARY ELSE 0 END),0) "여사원 급여합계"
+FROM employee;
 
-       FORMAT(SUM(SALARY * 12 + IFNULL(BONUS*SALARY*12, 0), 0)) 연봉
-     , FORMAT(SALARY * 12 + IFNULL(BONUS*SALARY*12, 0), 0) 연봉
-FROM employee
-WHERE
-      EMP_NO LIKE '_______1%'
-   OR EMP_NO LIKE '_______3%';
 /*
     ---------------- 출력 예시 -------------------
     `남사원 급여 합계`         `여사원 급여 합계`
