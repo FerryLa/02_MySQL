@@ -16,13 +16,14 @@ use empdb;
 
     */
 
-    SELECT    JOB_CODE AS '직급코드'
-            , COUNT(EMP_ID) AS '직급별 사원수'
-            , AVG(SALARY) AS '평균급여'
+    SELECT    JOB_CODE  직급코드
+            , COUNT(JOB_CODE)  '직급별 사원수'
+            , TRUNCATE(AVG(SALARY),0)  평균급여
             FROM
                 EMPLOYEE
             WHERE JOB_CODE !='J1'
-            GROUP BY JOB_CODE ;
+            GROUP BY JOB_CODE
+            ORDER BY 직급코드;
 
 
 
@@ -45,12 +46,12 @@ use empdb;
     */
 
 
-    SELECT    YEAR(HIRE_DATE) AS '입사년'
+    SELECT    EXTRACT(YEAR FROM HIRE_DATE) 입사년
             , COUNT(JOB_CODE) AS '인원수'
             FROM EMPLOYEE
             WHERE JOB_CODE != 'J1'
-            GROUP BY YEAR(HIRE_DATE)
-            ORDER BY YEAR(HIRE_DATE) ASC;
+            GROUP BY EXTRACT(YEAR FROM HIRE_DATE)
+            ORDER BY 입사년;
 
 
 
@@ -63,8 +64,24 @@ use empdb;
         남       "3,317,333"     "49,760,000"       15
         여       "2,757,360"     "24,816,240"       9
     */
+    SELECT CASE SUBSTR(EMP_NO,8,1) WHEN 1 THEN '남'
+                                   WHEN 3 THEN '남'
+                                   ELSE '여'
+                                    END AS 성별,
+           FORMAT(TRUNCATE(AVG(salary), 0), 0) AS 평균,
+            FORMAT(SUM(salary), 0) AS 합계,
+            COUNT(*) AS 인원수
+           FROM EMPLOYEE
+    GROUP BY
+        CASE SUBSTR(emp_no, 8, 1)
+            WHEN 1 THEN '남'
+            WHEN 3 THEN '남'
+            ELSE '여'
+            END
+    ORDER BY
+        인원수 DESC;
+    ;
 
-    SELECT
 
 -- 4. 직급별 인원수가 3명이상이 직급과 총원을 조회
 
@@ -81,6 +98,9 @@ use empdb;
 
 
     */
+
+
+
 
 SELECT    JOB_CODE AS '직급'
         , COUNT(JOB_CODE) AS '인원수'

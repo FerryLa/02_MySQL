@@ -134,6 +134,21 @@ SELECT
 
 -- 6. 주민번호가 70년대 생이면서 성별이 여자이고,
 --    성이 전씨인 직원들의 사원명, 주민번호, 부서명, 직급명을 조회하시오.
+SELECT
+       a.EMP_NAME 사원명
+     , a.EMP_NO 주민번호
+     , b.DEPT_TITLE 부서명
+     , c.JOB_NAME 직급명
+  FROM EMPLOYEE a
+  JOIN DEPARTMENT b ON a.DEPT_CODE = b.DEPT_ID
+  JOIN JOB c ON a.JOB_CODE = c.JOB_CODE
+WHERE
+      a.EMP_NO LIKE '7%'
+    AND
+      a.EMP_NO LIKE '_______2%'
+    AND
+      a.EMP_NAME LIKE '전%'
+;
 
 /*
     -------------------- 출력 예시 -------------------------
@@ -144,7 +159,18 @@ SELECT
 
 
 -- 7. 이름에 '형'자가 들어가는 직원들의 사번, 사원명, 직급명을 조회하시오.
-
+SELECT
+       A.EMP_ID 사번
+     , A.EMP_NAME 사원명
+     , B.JOB_NAME
+  FROM EMPLOYEE A
+  JOIN JOB B ON A.JOB_CODE = B.JOB_CODE
+WHERE
+       EMP_NAME LIKE '형%'
+    or
+       EMP_NAME LIKE '_형_'
+    or
+       EMP_NAME LIKE '%형';
 /*
     ------------------- 출력 예시 -----------------------
     사번      사원명    직급명
@@ -153,6 +179,17 @@ SELECT
 */
 
 -- 8. 해외영업팀에 근무하는 사원명, 직급명, 부서코드, 부서명을 조회하시오.
+SELECT
+       A.EMP_NAME 사원명
+     , B.JOB_NAME 직급명
+     , A.DEPT_CODE 부서코드
+     , C.DEPT_TITLE 부서명
+  FROM EMPLOYEE A
+  JOIN JOB B ON A.JOB_CODE = B.JOB_CODE
+  JOIN DEPARTMENT C ON A.DEPT_CODE = C.DEPT_ID
+WHERE
+    C.DEPT_TITLE LIKE '해외영업%';
+
 /*
     ------------------- 출력 예시 ---------------------------
     사원명     직급명     부서코드        부서명
