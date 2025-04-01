@@ -10,7 +10,10 @@
 SELECT
        EMP_ID 사번
      , EMP_NAME 사원명
-     , DATEDIFF(NOW(), )
+     , truncate(
+        datediff(now(),concat(if(substr(emp_no, 8, 1) in (1, 2), 19, 20),
+                              left(emp_no, 6))
+        ) / 365, 0) 나이
      , DEPT_TITLE 부서명
      , JOB_NAME 직급명
   FROM
@@ -177,6 +180,13 @@ SELECT
     총 row수는 8
 */
 SELECT
+       EMP_NAME 사원명
+     , JOB_NAME 직급명
+     , FORMAT(SALARY, 0) 급여
+  FROM EMPLOYEE a
+  JOIN JOB b ON a.JOB_CODE = b.JOB_CODE
+ WHERE a.BONUS IS NULL
+   AND JOB_NAME IN ('차장', '사원');
 
 
 -- 8. 재직중인 직원과 퇴사한 직원의 수를 조회하시오.
