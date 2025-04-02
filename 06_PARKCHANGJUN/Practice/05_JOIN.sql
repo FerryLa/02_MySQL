@@ -203,6 +203,18 @@ SELECT
   FROM
         EMPLOYEE;
 
+SELECT
+        E.EMP_NAME  사원명,
+        J.JOB_NAME 직급명,
+        E.DEPT_CODE 부서코드,
+        D.DEPT_TITLE 부서명
+  FROM
+        EMPLOYEE E
+        JOIN JOB J ON(E.JOB_CODE = J.JOB_CODE)
+        JOIN DEPARTMENT D ON(E.DEPT_CODE = D.DEPT_ID)
+ WHERE
+        D.DEPT_ID IN('D5', 'D6');
+
 
 
     /*
