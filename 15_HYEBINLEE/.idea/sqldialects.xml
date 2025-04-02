@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/10_SET_OPERATORS.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/11_DML.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/12_TRANSACTION.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/13_DDL.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/14_CONSTRAINTS.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/15_VIEW.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/16_INDEX.sql" dialect="MySQL" />
+  </component>
+</project>

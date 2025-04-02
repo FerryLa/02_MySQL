@@ -115,3 +115,13 @@
         COUNT(*) >= 3
     ORDER BY
         직급;
+
+SELECT
+    JOB_CODE  직급
+     , COUNT(JOB_CODE) 인원수
+FROM
+    employee
+GROUP BY
+    JOB_CODE
+HAVING
+    COUNT(JOB_CODE) >= 3;

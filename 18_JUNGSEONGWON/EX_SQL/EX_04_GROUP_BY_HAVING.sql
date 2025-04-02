@@ -56,11 +56,8 @@ SELECT
 
 
 -- 3. 성별 급여의 평균(정수처리), 급여의 합계, 인원수를 조회한 뒤 인원수로 내림차순을 정렬 하시오.
+
 SELECT
-     AVG(SALARY)
-    ,SUM(SALARY)
-    ,COUNT(*)
-FROM employee
 
 
 /*
