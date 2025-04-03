@@ -42,22 +42,22 @@ SELECT EMP_NAME AS 성명
     201 송종기 631126-1548654 song_jk@ohgiraffers.com 01045686656 D9 J2 S1 6000000  200 2001-09-01 00:00:00 N
 
 
-
+*/
 
     SELECT  *
             FROM
                 EMPLOYEE
             WHERE
-                EMAIL LIKE '____%_'
+                EMAIL LIKE '____\_%'
             AND
                 DEPT_CODE = 'D9'
             OR
                 DEPT_CODE = 'D5'
             AND
-                HIRE_DATE BETWEEN 20090101 AND 20101231
+                HIRE_DATE BETWEEN '90/01/01' AND '01/12/31'
             AND
                 SALARY  >= 2700000;
-*/
+
 
 
 

@@ -11,13 +11,9 @@ SELECT
     emp_id 사번,
     emp_name 사원명,
     truncate(
-            datediff(
-                    now(),
-                    concat(
-                            if(substr(emp_no, 8, 1) in (1, 2), 19, 20),
-                            left(emp_no, 6)
-                    )
-            ) / 365, 0) 나이,
+            datediff(now(),concat(if(substr(emp_no, 8, 1) in (1, 2), 19, 20),
+                            left(emp_no, 6))
+    ) / 365, 0) 나이,
     dept_title 부서명,
     job_name 직급명
 FROM
