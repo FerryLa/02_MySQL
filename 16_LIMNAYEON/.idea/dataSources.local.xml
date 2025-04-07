@@ -2,9 +2,10 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-243.26053.27">
     <data-source name="menudb@localhost" uuid="47cb6aa1-9581-4c10-9cfb-01b1f847e1ac">
-      <database-info product="MySQL" version="9.2.0" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="9.2.0" exact-driver-version="8.2">
+      <database-info product="MySQL" version="8.4.4" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.4.4" exact-driver-version="8.2">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
+        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
@@ -19,7 +20,7 @@
       </schema-mapping>
     </data-source>
     <data-source name="mysql@localhost" uuid="cb3d388d-b7a7-41eb-a907-a847ba36f615">
-      <database-info product="MySQL" version="9.2.0" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="9.2.0" exact-driver-version="8.2">
+      <database-info product="MySQL" version="8.4.4" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.4.4" exact-driver-version="8.2">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
@@ -29,26 +30,31 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="schema">
-            <name qname="@" />
             <name qname="empdb" />
+            <name qname="@" />
           </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>
     <data-source name="empdb@localhost" uuid="e72eb12f-59de-4cd8-9dd6-4b7c90428e44">
-      <database-info product="MySQL" version="9.2.0" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="9.2.0" exact-driver-version="8.2">
+      <database-info product="MySQL" version="8.4.4" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.4.4" exact-driver-version="8.2">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
         <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>employee</user-name>
+      <user-name>nayeon</user-name>
       <schema-mapping>
         <introspection-scope>
           <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
+    </data-source>
+    <data-source name="@192.168.0.11" uuid="4d522641-528e-4ac4-a19f-41dffb9260c9">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>master</user-name>
+      <schema-mapping />
     </data-source>
   </component>
 </project>

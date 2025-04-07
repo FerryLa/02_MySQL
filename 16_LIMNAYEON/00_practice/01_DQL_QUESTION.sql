@@ -72,7 +72,7 @@ SELECT
   FROM
         employee
  WHERE
-        HIRE_DATE
+        HIRE_DATE;
 
 
 
