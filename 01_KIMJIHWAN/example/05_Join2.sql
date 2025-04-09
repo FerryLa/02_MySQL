@@ -147,7 +147,15 @@ JOIN nation d on c.NATIONAL_CODE = d.NATIONAL_CODE;
     ...
     총 row 66
 */
-
+SELECT
+    c.EMP_NAME 사원명, a.DEPT_TITLE 부서명, c.EMP_NAME 동료사원명
+  FROM
+      employee e
+  JOIN employee e2 ON (e.DEPT_CODE = e2.DEPT_CODE)   # 셀프조인은 괄호를 해야 하나?
+LEFT JOIN department d ON e.DEPT_CODE = DEPT_ID
+  WHERE
+      e.emp_name != e2.emp_name
+ORDER BY 1;
 
    
 -- 7. 보너스포인트가 없는 직원들 중에서 직급이 차장과 사원인 직원들의 사원명, 직급명, 급여를 조회하시오.
