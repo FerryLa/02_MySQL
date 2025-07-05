@@ -35,8 +35,7 @@ SELECT
  WHERE
       category_code = 10
  UNION
- SELECT
-     menu
+
 
 # INTERSECT
 
