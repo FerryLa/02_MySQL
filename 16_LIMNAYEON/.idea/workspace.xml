@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de9dcf41-9ff0-4a1e-92e6-a5f30de2713a" name="변경" comment="commit">
-      <change afterPath="$PROJECT_DIR$/00_practice/01_DQL_QUESTION.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/47cb6aa1-9581-4c10-9cfb-01b1f847e1ac.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/47cb6aa1-9581-4c10-9cfb-01b1f847e1ac.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cb3d388d-b7a7-41eb-a907-a847ba36f615.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cb3d388d-b7a7-41eb-a907-a847ba36f615.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e72eb12f-59de-4cd8-9dd6-4b7c90428e44.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e72eb12f-59de-4cd8-9dd6-4b7c90428e44.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/00_practice/01_DQL_QUESTION.sql" beforeDir="false" afterPath="$PROJECT_DIR$/00_practice/01_DQL_QUESTION.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +51,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/03_Java/16_LIMNAYEON/00_practice/chap06-class-and-object-practice-question/src/main/java&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -58,22 +63,12 @@
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
       &quot;mysql&quot;
+    ],
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;MySQL&quot;
     ]
   }
 }</component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="16_LIMNAYEON" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="16_LIMNAYEON" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -101,6 +96,10 @@
       <workItem from="1742883184585" duration="2501000" />
       <workItem from="1742886119284" duration="56000" />
       <workItem from="1742886182275" duration="5783000" />
+      <workItem from="1743749715923" duration="14000" />
+      <workItem from="1743749759527" duration="3597000" />
+      <workItem from="1743774601756" duration="2521000" />
+      <workItem from="1743908337840" duration="21806000" />
     </task>
     <task id="LOCAL-00001" summary="11">
       <option name="closed" value="true" />
